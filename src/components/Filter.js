@@ -1,12 +1,9 @@
 import '../App.css';
-import React, { useState } from 'react';
 
-export default function Filter({ apartments }) {
-
-    const [city, setCity] = useState("");
+export default function Filter({ apartments, filteredApartments, setFilteredApartments }) {
 
     function handleOnChangeCity(e) {
-        setCity(e.target.value);
+        setFilteredApartments(apartments.filter(apartment => apartment.city.includes(e.target.value)));
     }
 
     return (
@@ -18,12 +15,7 @@ export default function Filter({ apartments }) {
                 onChange={handleOnChangeCity}
             />
 
-            <div>
-                {apartments.filter(apartments => apartments.city.includes(city)).map(apartment => (<div> {apartment.title} </div>))}
-            </div>
-
         </div>
     );
 
 };
-

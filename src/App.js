@@ -2,15 +2,21 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import Filter from './components/Filter';
+import ApartmentCard from './components/ApartmentCard';
 
 function App() {
+
   const [apartments, setApartments] = useState(null);
+  const [filteredApartments, setFilteredApartments] = useState(null);
 
   useEffect(() => {
     fetch('./apartments.json')
       // .then(response => console.log(response))
       .then(response => response.json())
-      .then(apartments => setApartments(apartments))
+      .then(apartments => {
+        setApartments(apartments)
+        setFilteredApartments(apartments)
+      })
       .catch(error => console.error('Error fetching apartments:', error));
   }, []);
 
@@ -20,7 +26,10 @@ function App() {
 
   return (
     <div className="App">
-      <Filter apartments={apartments} />
+      <Filter apartments={apartments} filteredApartments={filteredApartments} setFilteredApartments={setFilteredApartments} />
+
+      {filteredApartments.map(apartment => (<ApartmentCard apartment={apartment} />))}
+
     </div >
   );
 }
