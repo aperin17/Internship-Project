@@ -1,24 +1,27 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import Filter from './components/Filter';
 
 function App() {
+  const [apartments, setApartments] = useState(null);
+
+  useEffect(() => {
+    fetch('./apartments.json')
+      // .then(response => console.log(response))
+      .then(response => response.json())
+      .then(apartments => setApartments(apartments))
+      .catch(error => console.error('Error fetching apartments:', error));
+  }, []);
+
+  if (!apartments) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Filter apartments={apartments} />
+    </div >
   );
 }
 
