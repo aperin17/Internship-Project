@@ -1,5 +1,9 @@
 import '../App.css';
 import useStore from '../store/store.js'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
 
 export default function Filter({ apartments, setFilteredApartments }) {
 
@@ -20,27 +24,17 @@ export default function Filter({ apartments, setFilteredApartments }) {
     return (
         <div className="filter-container">
             <h3>Filter apartments</h3>
-            <input
-                type="text"
-                placeholder="City"
-                id="city"
-                onChange={(e) => { setFilterList({ city: e.target.value }) }}
-            />
-            <input
-                type="text"
-                placeholder="Maximum price per night (EUR)"
-                id="maxPrice"
-                onChange={(e) => { setFilterList({ maxPrice: e.target.value }) }}
-            />
-            <input
-                type="text"
-                placeholder="Number of guests"
-                id="guests"
-                onChange={(e) => { setFilterList({ guests: e.target.value }) }}
-            />
+            <Box component="form" className="filter-form" noValidate autoComplete="off" >
+                <TextField className="filter-input" label="City" id="outlined-size-small" size="small" variant="outlined"
+                    onChange={(e) => { setFilterList({ city: e.target.value }) }} />
+                <TextField className="filter-input" label="Maximum price per night (EUR)" id="outlined-size-small" size="small" variant="outlined"
+                    onChange={(e) => { setFilterList({ maxPrice: e.target.value }) }} />
+                <TextField className="filter-input" label="Number of guests" id="outlined-size-small" size="small" variant="outlined"
+                    onChange={(e) => { setFilterList({ guests: e.target.value }) }} />
 
-            <button onClick={filterApartments}>Search</button>
-
+                <Button className="app-button" variant="contained" size="small"
+                    onClick={filterApartments}>Filter</Button>
+            </Box>
         </div >
     );
 

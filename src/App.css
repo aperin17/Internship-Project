@@ -42,63 +42,55 @@
 /* ----------------------------------- */
 
 .apartment-card {
-  padding: 16px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   margin-right: 20px;
   margin-bottom: 20px;
   float: left;
-  width: 16%;
-  height: 300px;
+  width: 15%;
+  height: 340px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 1; */
 }
 
-.apartment-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.apartment-data h4 {
-  margin-top: 8px;
-  margin-bottom: 8px;
-  font-size: 16px;
-}
-
-.apartment-data p {
-  margin: 0;
-  font-size: 12px;
-  color: #6b7280
-}
 
 .filter-container {
   margin: 0 auto;
-  margin-bottom: 14px;
+  margin-bottom: 40px;
 }
 
-.filter-container input {
-  width: 15%;
-  margin-right: 16px;
-  margin-bottom: 16px;
-  padding: 10px 40px 10px 15px;
-  background-color: #ececec;
-  border: 1px solid #d5d5d5;
-  border-radius: 10px;
-  outline: none;
-  font-size: 14px;
-  transition: 0.2s ease;
+.filter-form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.filter-container input:focus {
-  border-color: #a9a9a9;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+.filter-form .MuiTextField-root {
+  width: 35ch;
 }
 
-.filter-container button {
-  background-color: #00819b;
+.filter-form .app-button {
+  height: 37px;
+  text-transform: none;
+  background-color: "primary";
   color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 10px;
   border-width: 0px;
   font-size: 14px;
+}
+
+
+.filter-input .MuiOutlinedInput-root {
+  border-radius: 10px;
+}
+
+.filter-input .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: "primary";
+}
+
+.filter-input .MuiInputLabel-root.Mui-focused {
+  color: "primary";
+  ;
 }
