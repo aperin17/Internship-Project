@@ -72,14 +72,14 @@
 }
 
 .filter-container {
-  position: relative;
-  width: 300px;
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 14px;
 }
 
 .filter-container input {
-  width: 100%;
+  width: 15%;
+  margin-right: 16px;
+  margin-bottom: 16px;
   padding: 10px 40px 10px 15px;
   background-color: #ececec;
   border: 1px solid #d5d5d5;
@@ -92,4 +92,13 @@
 .filter-container input:focus {
   border-color: #a9a9a9;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container button {
+  background-color: #00819b;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 10px;
+  border-width: 0px;
+  font-size: 14px;
 }

@@ -10,11 +10,11 @@ export default function ApartmentCard({ apartment }) {
             <div className="apartment-data">
                 <h4>{apartment.title}</h4>
                 <p>{apartment.city}</p>
-                <p>{apartment.address}</p>
+                <p>Address: {apartment.address}</p>
+                <p>Number od guests: {apartment.guests}</p>
                 <p>{apartment.pricePerNight} {apartment.currency}</p>
             </div>
         </div>
-
     );
 
 };

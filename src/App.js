@@ -1,21 +1,21 @@
-// import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import ApartmentCard from './components/ApartmentCard';
+// import useStore from './store/store.js'
 
 function App() {
 
+  // const { apartments, filteredApartments, setApartments, setFilteredApartments } = useStore()
   const [apartments, setApartments] = useState(null);
-  const [filteredApartments, setFilteredApartments] = useState(null);
+  const [filteredApartments, setFilteredApartments] = useState(null); //
 
   useEffect(() => {
     fetch('./apartments.json')
-      // .then(response => console.log(response))
       .then(response => response.json())
       .then(apartments => {
         setApartments(apartments)
-        setFilteredApartments(apartments)
+        setFilteredApartments(apartments) //
       })
       .catch(error => console.error('Error fetching apartments:', error));
   }, []);
@@ -26,7 +26,9 @@ function App() {
 
   return (
     <div className="App">
-      <Filter apartments={apartments} filteredApartments={filteredApartments} setFilteredApartments={setFilteredApartments} />
+      {/* <Filter /> */}
+      {/* <Filter apartments={apartments} /> */}
+      <Filter apartments={apartments} setFilteredApartments={setFilteredApartments} />
 
       {filteredApartments.map(apartment => (<ApartmentCard key={apartment.id} apartment={apartment} />))}
 
