@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <Filter apartments={apartments} filteredApartments={filteredApartments} setFilteredApartments={setFilteredApartments} />
 
-      {filteredApartments.map(apartment => (<ApartmentCard apartment={apartment} />))}
+      {filteredApartments.map(apartment => (<ApartmentCard key={apartment.id} apartment={apartment} />))}
 
     </div >
   );

@@ -3,11 +3,11 @@ import '../App.css';
 export default function Filter({ apartments, filteredApartments, setFilteredApartments }) {
 
     function handleOnChangeCity(e) {
-        setFilteredApartments(apartments.filter(apartment => apartment.city.includes(e.target.value)));
+        setFilteredApartments(apartments.filter(apartment => apartment.city.toLowerCase().includes(e.target.value.toLowerCase())));
     }
 
     return (
-        <div>
+        <div className="filter-container">
             <input
                 type="text"
                 placeholder="Filter apartments..."
