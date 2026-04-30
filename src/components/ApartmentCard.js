@@ -6,8 +6,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from "react-router";
 
 export default function ApartmentCard({ apartment }) {
+
+    let navigate = useNavigate();
 
     return (
         <Card className="apartment-card" >
@@ -32,7 +35,7 @@ export default function ApartmentCard({ apartment }) {
                 </Typography>
             </CardContent>
             <CardActions sx={{ marginTop: "auto" }}>
-                <Button size="small" sx={{ color: "primary.main" }} >Details</Button>
+                <Button size="small" sx={{ color: "primary.main" }} onClick={() => navigate(`/apartments/${apartment.id}`)}>Details</Button>
             </CardActions>
         </Card >
     );

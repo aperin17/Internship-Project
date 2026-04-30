@@ -4,7 +4,7 @@ import Filter from './Filter';
 import ApartmentCard from './ApartmentCard';
 // import useStore from './store/store.js'
 
-export default function ApartmentListView({ apartment }) {
+export default function ApartmentListView() {
 
     // const { apartments, filteredApartments, setApartments, setFilteredApartments } = useStore()
     const [apartments, setApartments] = useState(null);
