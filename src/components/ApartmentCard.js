@@ -18,12 +18,12 @@ export default function ApartmentCard({ apartment }) {
                 component="img"
                 image={img}
                 sx={{
-                    height: 140,
+                    height: 150,
                     width: "100%",
                     objectFit: "cover"
                 }}
             />
-            <CardContent>
+            <CardContent sx={{ overflow: "hidden" }}>
                 <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: "16px" }}>
                     {apartment.title}
                 </Typography>
@@ -31,7 +31,7 @@ export default function ApartmentCard({ apartment }) {
                     {apartment.city}<br />
                     Address: {apartment.address}<br />
                     Number od guests: {apartment.guests}<br />
-                    {apartment.pricePerNight} {apartment.currency}
+                    <b>{apartment.pricePerNight} {apartment.currency}</b>
                 </Typography>
             </CardContent>
             <CardActions sx={{ marginTop: "auto" }}>

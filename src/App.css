@@ -1,6 +1,9 @@
 .App {
   text-align: left;
-  margin: 50px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .App-logo {
@@ -45,12 +48,11 @@
   margin-right: 20px;
   margin-bottom: 20px;
   float: left;
-  width: 15%;
-  height: 340px;
-  overflow: hidden;
   display: flex;
+  width: 258px;
+  height: 330px;
   flex-direction: column;
-  /* flex-grow: 1; */
+  justify-content: space-between;
 }
 
 
@@ -60,15 +62,15 @@
 }
 
 .filter-form {
+  width: 100%;
   display: flex;
-  align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: row;
 }
 
-.filter-form .MuiTextField-root {
+/* .filter-form .MuiTextField-root {
   width: 35ch;
-}
+} */
 
 .filter-form .app-button {
   height: 37px;
@@ -92,5 +94,4 @@
 
 .filter-input .MuiInputLabel-root.Mui-focused {
   color: "primary";
-  ;
 }
