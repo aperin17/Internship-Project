@@ -3,6 +3,7 @@ import useStore from '../store/store.js'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 
 export default function Filter({ apartments, setFilteredApartments }) {
@@ -23,7 +24,9 @@ export default function Filter({ apartments, setFilteredApartments }) {
 
     return (
         <div className="filter-container">
-            <h3>Filter apartments</h3>
+            <Typography variant="h5" component="div" sx={{ fontSize: "20px", marginBottom: "12px" }}>
+                Filter apartments
+            </Typography>
             <Box component="form" className="filter-form" noValidate autoComplete="off" >
                 <TextField className="filter-input" label="City" id="outlined-size-small" size="small" variant="outlined"
                     onChange={(e) => { setFilterList({ city: e.target.value }) }} />
