@@ -71,27 +71,27 @@ export default function ApartmentDetailsView({ apartments }) {
 
             <Grid container spacing={2} sx={{ marginTop: 2 }}>
 
-                <Grid item xs={6}>
+                <Grid xs={6}>
                     <Typography><b>Address:</b> {apartment.address}</Typography>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid xs={6}>
                     <Typography><b>Guests:</b> {apartment.guests}</Typography>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid xs={6}>
                     <Typography><b>Bedrooms:</b> {apartment.bedrooms}</Typography>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid xs={6}>
                     <Typography><b>Beds:</b> {apartment.beds}</Typography>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid xs={6}>
                     <Typography><b>Bathrooms:</b> {apartment.bathrooms}</Typography>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid xs={6}>
                     <Typography><b>Coordinates:</b> {apartment.lat}, {apartment.lng}</Typography>
                 </Grid>
             </Grid>

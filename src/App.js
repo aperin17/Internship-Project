@@ -4,6 +4,7 @@ import ApartmentListView from './components/ApartmentListView.js';
 import ApartmentDetailsView from './components/ApartmentDetailsView.js';
 import FavoritesView from './components/FavoritesView.js';
 import { Routes, Route } from "react-router-dom";
+import { getApartments } from './api/api.js';
 
 function App() {
 
@@ -11,15 +12,24 @@ function App() {
   const [apartments, setApartments] = useState(null);
   const [filteredApartments, setFilteredApartments] = useState(null); //
 
-  useEffect(() => {
-    fetch('./apartments.json')
-      .then(response => response.json())
-      .then(apartments => {
-        setApartments(apartments)
-        setFilteredApartments(apartments) //
-      })
-      .catch(error => console.error('Error fetching apartments:', error));
+
+  const doGetApartments = React.useCallback(async () => {
+    try {
+      const result = await getApartments();
+      setApartments(result);
+      setFilteredApartments(result);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
+  useEffect(() => {
+    doGetApartments();
+  }, [doGetApartments]);
+
+  // const refetchApartments = async () => {
+  //   await doGetApartments();
+  // };
 
   if (!apartments) {
     return <div>Loading...</div>;
