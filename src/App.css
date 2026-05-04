@@ -55,6 +55,13 @@
   justify-content: space-between;
 }
 
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .filter-container {
   margin: 0 auto;

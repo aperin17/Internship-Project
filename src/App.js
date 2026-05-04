@@ -24,7 +24,7 @@ function App() {
     return <div>Loading...</div>;
   }
   if (!filteredApartments) {
-    return <div>Loading filtered...</div>;
+    return <div>Loading filtered apartments...</div>;
   }
 
 

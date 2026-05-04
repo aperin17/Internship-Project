@@ -7,10 +7,17 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import useStore from '../store/store.js';
+
 
 export default function ApartmentCard({ apartment }) {
 
     let navigate = useNavigate();
+    const favoriteIds = useStore((state) => state.favoriteIds)
+    const toggleFavorite = useStore((state) => state.toggleFavorite);
+
 
     return (
         <Card className="apartment-card" >
@@ -34,9 +41,19 @@ export default function ApartmentCard({ apartment }) {
                     <b>{apartment.pricePerNight} {apartment.currency}</b>
                 </Typography>
             </CardContent>
-            <CardActions sx={{ marginTop: "auto" }}>
+            <CardActions className="card-actions">
                 <Button size="small" sx={{ color: "primary.main" }} onClick={() => navigate(`/apartments/${apartment.id}`)}>Details</Button>
-            </CardActions>
+                {
+                    !favoriteIds.includes(apartment.id)
+                        ?
+                        // Add to favorites button
+                        < FavoriteBorderIcon onClick={() => toggleFavorite(apartment.id)} color="primary" > </FavoriteBorderIcon>
+                        :
+                        // Remove from favorites button
+                        < FavoriteIcon onClick={() => toggleFavorite(apartment.id)} color="primary"> </FavoriteIcon>
+
+                }
+            </CardActions >
         </Card >
     );
 

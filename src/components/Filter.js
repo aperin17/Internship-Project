@@ -14,7 +14,7 @@ export default function Filter({ apartments, setFilteredApartments }) {
 
     const filterApartments = () => {
         return setFilteredApartments(apartments.filter(apartment => (
-            apartment.city.toLowerCase().includes(filterList.city.toLowerCase())
+            apartment.city?.toLowerCase().includes(filterList.city.toLowerCase())
             &&
             Number(apartment.pricePerNight) <= (filterList.maxPrice === "" ? Infinity : Number(filterList.maxPrice))
             &&

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-const useStore = create((set) => ({
+const useStore = create((set,) => ({
 
     filterList: {
         city: "",
@@ -8,7 +8,18 @@ const useStore = create((set) => ({
         guests: ""
     },
 
-    setFilterList: (newFilterList) => set((state) => ({ filterList: { ...state.filterList, ...newFilterList } }))
+    setFilterList: (newFilterList) => set((state) => ({ filterList: { ...state.filterList, ...newFilterList } })),
+
+    favoriteIds: [],
+
+    toggleFavorite: (id) =>
+        set((state) => {
+            if (state.favoriteIds.includes(id)) {
+                return { favoriteIds: state.favoriteIds.filter(item => item !== id) } //remove id
+            }
+            return { favoriteIds: [...state.favoriteIds, id] } //add id
+        }),
+
 
     // apartments: [],
     // filteredApartments: [],
