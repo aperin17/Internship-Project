@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { filterApartments } from '../utils/filterApartments.js'
 
 
 export default function Filter({ apartments, setFilteredApartments }) {
@@ -11,7 +12,7 @@ export default function Filter({ apartments, setFilteredApartments }) {
     const setFilterList = useStore((state) => state.setFilterList);
 
 
-    const filterApartments = (e) => {
+    const handleClickOnFilterButton = (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
@@ -24,13 +25,7 @@ export default function Filter({ apartments, setFilteredApartments }) {
 
         setFilterList(filters);
 
-        setFilteredApartments(apartments.filter(apartment => (
-            apartment.city?.toLowerCase().includes(filters.city.toLowerCase())
-            &&
-            Number(apartment.pricePerNight) <= (filters.maxPrice === "" ? Infinity : Number(filters.maxPrice))
-            &&
-            Number(apartment.guests) >= (filters.guests === "" ? 1 : Number(filters.guests))
-        )))
+        setFilteredApartments(filterApartments(apartments, filters))
     };
 
 
@@ -39,7 +34,7 @@ export default function Filter({ apartments, setFilteredApartments }) {
             <Typography variant="h5" component="div" sx={{ fontSize: "20px", marginBottom: "12px" }}>
                 Filter apartments
             </Typography>
-            <Box component="form" className="filter-form" onSubmit={filterApartments} noValidate autoComplete="off" >
+            <Box component="form" className="filter-form" onSubmit={handleClickOnFilterButton} noValidate autoComplete="off" >
 
                 <TextField className="filter-input" name="city" label="City" fullWidth id="outlined-size-small" size="small" variant="outlined" />
                 <TextField className="filter-input" name="maxPrice" label="Maximum price per night (EUR)" fullWidth id="outlined-size-small" size="small" variant="outlined" />
