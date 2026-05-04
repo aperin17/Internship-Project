@@ -104,7 +104,8 @@
 }
 
 
-.no-favorite-apartments {
+.no-favorite-apartments,
+.loading {
   color: #888;
   height: 60vh;
   display: flex;

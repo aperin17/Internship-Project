@@ -5,21 +5,25 @@ import ApartmentDetailsView from './components/ApartmentDetailsView.js';
 import FavoritesView from './components/FavoritesView.js';
 import { Routes, Route } from "react-router-dom";
 import { getApartments } from './api/api.js';
+import Typography from '@mui/material/Typography';
 
 function App() {
 
   // const { apartments, filteredApartments, setApartments, setFilteredApartments } = useStore()
   const [apartments, setApartments] = useState(null);
   const [filteredApartments, setFilteredApartments] = useState(null); //
-
+  const [loading, setLoading] = useState(true);
 
   const doGetApartments = React.useCallback(async () => {
     try {
+      setLoading(true);
       const result = await getApartments();
       setApartments(result);
       setFilteredApartments(result);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -31,13 +35,9 @@ function App() {
   //   await doGetApartments();
   // };
 
-  if (!apartments) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <Typography className="loading" variant="h4">Loading...</Typography>;
   }
-  if (!filteredApartments) {
-    return <div>Loading filtered apartments...</div>;
-  }
-
 
   return (
     <Routes>
