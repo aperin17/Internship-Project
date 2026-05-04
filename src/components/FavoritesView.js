@@ -10,7 +10,7 @@ export default function FavoritesView({ apartments }) {
 
     return (
         <div className="App">
-            <Typography variant="h4" gutterBottom>Favorites</Typography>
+            <Typography variant="h4" sx={{ mb: 3 }}>Favorites</Typography>
 
             {favoriteIds?.length
                 ? apartments?.filter(apartment => favoriteIds.includes(apartment.id))

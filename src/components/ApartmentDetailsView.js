@@ -7,6 +7,11 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import img from "../images/apartment3.PNG";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import useStore from '../store/store.js';
+import Rating from "@mui/material/Rating";
+
 
 export default function ApartmentDetailsView({ apartments }) {
 
@@ -16,8 +21,27 @@ export default function ApartmentDetailsView({ apartments }) {
         (a) => a.id === Number(params.apartmentId)
     );
 
+    const favoriteIds = useStore((state) => state.favoriteIds);
+    const toggleFavorite = useStore((state) => state.toggleFavorite);
+
+
     return (
         <Container maxWidth="md" sx={{ marginTop: 4 }}>
+
+            <Box sx={{ mb: 3, width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
+                <Typography variant="h4">
+                    {apartment.title} in {apartment.city}
+                </Typography>
+                {
+                    !favoriteIds.includes(apartment.id)
+                        ?
+                        // Add to favorites button
+                        < FavoriteBorderIcon onClick={() => toggleFavorite(apartment.id)} color="primary" > </FavoriteBorderIcon>
+                        :
+                        // Remove from favorites button
+                        < FavoriteIcon onClick={() => toggleFavorite(apartment.id)} color="primary"> </FavoriteIcon>
+                }
+            </Box>
 
             <Box
                 component="img"
@@ -31,17 +55,11 @@ export default function ApartmentDetailsView({ apartments }) {
                 }}
             />
 
-            <Typography variant="h4" gutterBottom>
-                {apartment.title} in {apartment.city}
-            </Typography>
-
             <Typography variant="h6" color="primary" gutterBottom>
                 {apartment.pricePerNight} {apartment.currency} / night
             </Typography>
 
-            <Typography variant="body2" sx={{ mb: 2 }}>
-                ⭐ {apartment.rating} / 5
-            </Typography>
+            <Rating value={apartment.rating} precision={0.5} readOnly />
 
             <Grid container spacing={2} sx={{ marginTop: 2 }}>
 
