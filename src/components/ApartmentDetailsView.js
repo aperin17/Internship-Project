@@ -11,7 +11,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import useStore from '../store/store.js';
 import Rating from "@mui/material/Rating";
-
+import WifiIcon from '@mui/icons-material/Wifi';
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import BalconyIcon from '@mui/icons-material/Balcony';
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import KitchenIcon from "@mui/icons-material/Kitchen";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import TvIcon from "@mui/icons-material/Tv";
+import HotTubIcon from "@mui/icons-material/HotTub";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function ApartmentDetailsView({ apartments }) {
 
@@ -95,7 +103,7 @@ export default function ApartmentDetailsView({ apartments }) {
 
                 <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                     {apartment.amenities.map((item, index) => (
-                        <Chip key={index} label={item} />
+                        <Chip key={index} icon={amenityIcons[item] || null} label={item} />
                     ))}
                 </Box>
             </Box>
@@ -112,3 +120,14 @@ export default function ApartmentDetailsView({ apartments }) {
 
 };
 
+const amenityIcons = {
+    WiFi: <WifiIcon />,
+    Klima: <AcUnitIcon />,
+    Kuhinja: <KitchenIcon />,
+    Parking: <LocalParkingIcon />,
+    Balkon: <BalconyIcon />,
+    Grejanje: <WhatshotIcon />,
+    TV: <TvIcon />,
+    Jacuzzi: <HotTubIcon />,
+    View: <VisibilityIcon />,
+};
