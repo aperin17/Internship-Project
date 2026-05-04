@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import ApartmentListView from './components/ApartmentListView.js';
 import ApartmentDetailsView from './components/ApartmentDetailsView.js';
+import FavoritesView from './components/FavoritesView.js';
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     <Routes>
       <Route path="/" element={<ApartmentListView apartments={apartments} filteredApartments={filteredApartments} setFilteredApartments={setFilteredApartments} />} />
       <Route path="apartments/:apartmentId" element={<ApartmentDetailsView apartments={apartments} />} />
+      <Route path="favorites" element={<FavoritesView apartments={apartments} />} />
     </Routes>
   );
 }

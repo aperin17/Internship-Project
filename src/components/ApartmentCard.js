@@ -15,7 +15,7 @@ import useStore from '../store/store.js';
 export default function ApartmentCard({ apartment }) {
 
     let navigate = useNavigate();
-    const favoriteIds = useStore((state) => state.favoriteIds)
+    const favoriteIds = useStore((state) => state.favoriteIds);
     const toggleFavorite = useStore((state) => state.toggleFavorite);
 
 

@@ -102,3 +102,13 @@
 .filter-input .MuiInputLabel-root.Mui-focused {
   color: "primary";
 }
+
+
+.no-favorite-apartments {
+  color: #888;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+}
