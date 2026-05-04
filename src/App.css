@@ -112,3 +112,12 @@
   align-items: center;
   font-style: italic;
 }
+
+.apartment-not-found {
+  color: #888;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+}

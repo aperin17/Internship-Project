@@ -18,9 +18,8 @@ export default function ApartmentCard({ apartment }) {
     const favoriteIds = useStore((state) => state.favoriteIds);
     const toggleFavorite = useStore((state) => state.toggleFavorite);
 
-
     return (
-        <Card className="apartment-card" >
+        apartment ? (<Card className="apartment-card" >
             <CardMedia
                 component="img"
                 image={img}
@@ -55,6 +54,8 @@ export default function ApartmentCard({ apartment }) {
                 }
             </CardActions >
         </Card >
+        )
+            : (<Card className="apartment-card" > <Typography className="apartment-not-found">Apartment not found.</Typography> </Card>)
     );
 
 };
