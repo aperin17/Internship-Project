@@ -47,88 +47,90 @@ export default function ApartmentDetailsView() {
 
 
     return (
-        <Container maxWidth="md" sx={{ marginTop: 4 }}>
+        <div className="App">
+            <Container maxWidth="md" sx={{ marginTop: 4 }}>
 
-            <Box sx={{ mb: 3, width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
-                <Typography variant="h4">
-                    {data.title} in {data.city}
-                </Typography>
-                {
-                    !favoriteIds.includes(data.id)
-                        ?
-                        // Add to favorites button
-                        < FavoriteBorderIcon onClick={() => toggleFavorite(data.id)} color="primary" > </FavoriteBorderIcon>
-                        :
-                        // Remove from favorites button
-                        < FavoriteIcon onClick={() => toggleFavorite(data.id)} color="primary"> </FavoriteIcon>
-                }
-            </Box>
-
-            <Box
-                component="img"
-                src={img}
-                sx={{
-                    width: "100%",
-                    height: 400,
-                    borderRadius: 2,
-                    objectFit: "cover",
-                    marginBottom: 3
-                }}
-            />
-
-            <Typography variant="h6" color="primary" gutterBottom>
-                {data.pricePerNight} {data.currency} / night
-            </Typography>
-
-            <Rating value={data.rating} precision={0.5} readOnly />
-
-            <Grid container spacing={2} sx={{ marginTop: 2 }}>
-
-                <Grid xs={6}>
-                    <Typography><b>Address:</b> {data.address}</Typography>
-                </Grid>
-
-                <Grid xs={6}>
-                    <Typography><b>Guests:</b> {data.guests}</Typography>
-                </Grid>
-
-                <Grid xs={6}>
-                    <Typography><b>Bedrooms:</b> {data.bedrooms}</Typography>
-                </Grid>
-
-                <Grid xs={6}>
-                    <Typography><b>Beds:</b> {data.beds}</Typography>
-                </Grid>
-
-                <Grid xs={6}>
-                    <Typography><b>Bathrooms:</b> {data.bathrooms}</Typography>
-                </Grid>
-
-                <Grid xs={6}>
-                    <Typography><b>Coordinates:</b> {data.lat}, {data.lng}</Typography>
-                </Grid>
-            </Grid>
-
-            <Box sx={{ marginTop: 4 }}>
-                <Typography variant="h6" gutterBottom>
-                    Amenities
-                </Typography>
-
-                <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                    {data.amenities.map((item, index) => (
-                        <Chip key={index} icon={amenityIcons[item] || null} label={item} />
-                    ))}
+                <Box sx={{ mb: 3, width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
+                    <Typography variant="h4">
+                        {data.title} in {data.city}
+                    </Typography>
+                    {
+                        !favoriteIds.includes(data.id)
+                            ?
+                            // Add to favorites button
+                            < FavoriteBorderIcon onClick={() => toggleFavorite(data.id)} color="primary" > </FavoriteBorderIcon>
+                            :
+                            // Remove from favorites button
+                            < FavoriteIcon onClick={() => toggleFavorite(data.id)} color="primary"> </FavoriteIcon>
+                    }
                 </Box>
-            </Box>
 
-            <Box sx={{ marginTop: 4 }}>
-                <Typography variant="h6">Description</Typography>
-                <Typography variant="body2" sx={{ marginTop: 1 }}>
-                    Opis.
+                <Box
+                    component="img"
+                    src={img}
+                    sx={{
+                        width: "100%",
+                        height: 400,
+                        borderRadius: 2,
+                        objectFit: "cover",
+                        marginBottom: 3
+                    }}
+                />
+
+                <Typography variant="h6" color="primary" gutterBottom>
+                    {data.pricePerNight} {data.currency} / night
                 </Typography>
-            </Box>
 
-        </Container>
+                <Rating value={data.rating} precision={0.5} readOnly />
+
+                <Grid container spacing={2} sx={{ marginTop: 2 }}>
+
+                    <Grid xs={6}>
+                        <Typography><b>Address:</b> {data.address}</Typography>
+                    </Grid>
+
+                    <Grid xs={6}>
+                        <Typography><b>Guests:</b> {data.guests}</Typography>
+                    </Grid>
+
+                    <Grid xs={6}>
+                        <Typography><b>Bedrooms:</b> {data.bedrooms}</Typography>
+                    </Grid>
+
+                    <Grid xs={6}>
+                        <Typography><b>Beds:</b> {data.beds}</Typography>
+                    </Grid>
+
+                    <Grid xs={6}>
+                        <Typography><b>Bathrooms:</b> {data.bathrooms}</Typography>
+                    </Grid>
+
+                    <Grid xs={6}>
+                        <Typography><b>Coordinates:</b> {data.lat}, {data.lng}</Typography>
+                    </Grid>
+                </Grid>
+
+                <Box sx={{ marginTop: 4 }}>
+                    <Typography variant="h6" gutterBottom>
+                        Amenities
+                    </Typography>
+
+                    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                        {data.amenities.map((item, index) => (
+                            <Chip key={index} icon={amenityIcons[item] || null} label={item} />
+                        ))}
+                    </Box>
+                </Box>
+
+                <Box sx={{ marginTop: 4 }}>
+                    <Typography variant="h6">Description</Typography>
+                    <Typography variant="body2" sx={{ marginTop: 1 }}>
+                        Opis.
+                    </Typography>
+                </Box>
+
+            </Container>
+        </div>
     );
 
 };
