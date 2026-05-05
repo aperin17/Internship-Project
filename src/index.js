@@ -10,15 +10,21 @@ import '@fontsource/roboto/700.css';
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider, } from '@tanstack/react-query'
+
+
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

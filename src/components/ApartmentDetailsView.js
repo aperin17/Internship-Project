@@ -20,17 +20,30 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import TvIcon from "@mui/icons-material/Tv";
 import HotTubIcon from "@mui/icons-material/HotTub";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { getApartment } from '../api/api.js';
+import { useQuery } from '@tanstack/react-query'
 
-export default function ApartmentDetailsView({ apartments }) {
+
+export default function ApartmentDetailsView() {
 
     let params = useParams();
 
-    const apartment = apartments?.find(
-        (a) => a.id === Number(params.apartmentId)
-    );
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ['apartment', params.apartmentId],
+        queryFn: () => getApartment(params.apartmentId),
+    })
 
     const favoriteIds = useStore((state) => state.favoriteIds);
     const toggleFavorite = useStore((state) => state.toggleFavorite);
+
+
+    if (isLoading) {
+        return (<Typography className="loading" variant="h4">Loading...</Typography>);
+    }
+
+    if (isError) {
+        return (<Typography className="error" variant="h4">Error: {error.message}</Typography>);
+    }
 
 
     return (
@@ -38,16 +51,16 @@ export default function ApartmentDetailsView({ apartments }) {
 
             <Box sx={{ mb: 3, width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
                 <Typography variant="h4">
-                    {apartment.title} in {apartment.city}
+                    {data.title} in {data.city}
                 </Typography>
                 {
-                    !favoriteIds.includes(apartment.id)
+                    !favoriteIds.includes(data.id)
                         ?
                         // Add to favorites button
-                        < FavoriteBorderIcon onClick={() => toggleFavorite(apartment.id)} color="primary" > </FavoriteBorderIcon>
+                        < FavoriteBorderIcon onClick={() => toggleFavorite(data.id)} color="primary" > </FavoriteBorderIcon>
                         :
                         // Remove from favorites button
-                        < FavoriteIcon onClick={() => toggleFavorite(apartment.id)} color="primary"> </FavoriteIcon>
+                        < FavoriteIcon onClick={() => toggleFavorite(data.id)} color="primary"> </FavoriteIcon>
                 }
             </Box>
 
@@ -64,35 +77,35 @@ export default function ApartmentDetailsView({ apartments }) {
             />
 
             <Typography variant="h6" color="primary" gutterBottom>
-                {apartment.pricePerNight} {apartment.currency} / night
+                {data.pricePerNight} {data.currency} / night
             </Typography>
 
-            <Rating value={apartment.rating} precision={0.5} readOnly />
+            <Rating value={data.rating} precision={0.5} readOnly />
 
             <Grid container spacing={2} sx={{ marginTop: 2 }}>
 
                 <Grid xs={6}>
-                    <Typography><b>Address:</b> {apartment.address}</Typography>
+                    <Typography><b>Address:</b> {data.address}</Typography>
                 </Grid>
 
                 <Grid xs={6}>
-                    <Typography><b>Guests:</b> {apartment.guests}</Typography>
+                    <Typography><b>Guests:</b> {data.guests}</Typography>
                 </Grid>
 
                 <Grid xs={6}>
-                    <Typography><b>Bedrooms:</b> {apartment.bedrooms}</Typography>
+                    <Typography><b>Bedrooms:</b> {data.bedrooms}</Typography>
                 </Grid>
 
                 <Grid xs={6}>
-                    <Typography><b>Beds:</b> {apartment.beds}</Typography>
+                    <Typography><b>Beds:</b> {data.beds}</Typography>
                 </Grid>
 
                 <Grid xs={6}>
-                    <Typography><b>Bathrooms:</b> {apartment.bathrooms}</Typography>
+                    <Typography><b>Bathrooms:</b> {data.bathrooms}</Typography>
                 </Grid>
 
                 <Grid xs={6}>
-                    <Typography><b>Coordinates:</b> {apartment.lat}, {apartment.lng}</Typography>
+                    <Typography><b>Coordinates:</b> {data.lat}, {data.lng}</Typography>
                 </Grid>
             </Grid>
 
@@ -102,7 +115,7 @@ export default function ApartmentDetailsView({ apartments }) {
                 </Typography>
 
                 <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                    {apartment.amenities.map((item, index) => (
+                    {data.amenities.map((item, index) => (
                         <Chip key={index} icon={amenityIcons[item] || null} label={item} />
                     ))}
                 </Box>

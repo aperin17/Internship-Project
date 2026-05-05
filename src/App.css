@@ -105,7 +105,8 @@
 
 
 .no-favorite-apartments,
-.loading {
+.loading,
+.error {
   color: #888;
   height: 60vh;
   display: flex;

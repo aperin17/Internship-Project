@@ -1,35 +1,39 @@
 import '../App.css';
-// import React, { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Filter from './Filter';
 import ApartmentCard from './ApartmentCard';
-// import useStore from './store/store.js'
+import { useQuery } from '@tanstack/react-query';
+import { getApartments } from '../api/api.js';
+import Typography from '@mui/material/Typography';
 
-export default function ApartmentListView({ apartments, filteredApartments, setFilteredApartments }) {
 
-    // // const { apartments, filteredApartments, setApartments, setFilteredApartments } = useStore()
-    // const [apartments, setApartments] = useState(null);
-    // const [filteredApartments, setFilteredApartments] = useState(null); //
+export default function ApartmentListView() {
 
-    // useEffect(() => {
-    //     fetch('./apartments.json')
-    //         .then(response => response.json())
-    //         .then(apartments => {
-    //             setApartments(apartments)
-    //             setFilteredApartments(apartments) //
-    //         })
-    //         .catch(error => console.error('Error fetching apartments:', error));
-    // }, []);
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ['apartments'],
+        queryFn: getApartments,
+    })
 
-    // if (!apartments) {
-    //     return <div>Loading...</div>;
-    // }
+    const [filteredApartments, setFilteredApartments] = useState(null);
+
+
+    useEffect(() => {
+        if (data) setFilteredApartments(data);
+    }, [data]);
+
+
+    if (isLoading) {
+        return (<Typography className="loading" variant="h4">Loading...</Typography>);
+    }
+
+    if (isError) {
+        return (<Typography variant="h5">Error: {error.message}</Typography>);
+    }
+
 
     return (
         <div className="App">
-            {/* <Filter /> */}
-            {/* <Filter apartments={apartments} /> */}
-            <Filter apartments={apartments} setFilteredApartments={setFilteredApartments} />
+            <Filter apartments={data} setFilteredApartments={setFilteredApartments} />
 
             {filteredApartments?.map(apartment => (<ApartmentCard key={apartment.id} apartment={apartment} />))}
 
