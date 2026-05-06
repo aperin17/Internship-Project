@@ -7,8 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from "@mui/material/MenuItem";
 import FormTextField from "./FormTextField";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import { useForm, FormProvider, Controller } from "react-hook-form";
+import { addApartment } from '../utils/addApartment.js';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const AMENITIES = [
     "WiFi",
@@ -26,6 +30,8 @@ export default function NewApartmentDialog() {
 
     const [open, setOpen] = React.useState(false);
 
+    const queryClient = useQueryClient();
+
     const methods = useForm({
         defaultValues: {
             title: "",
@@ -34,7 +40,7 @@ export default function NewApartmentDialog() {
             lat: "",
             lng: "",
             pricePerNight: "",
-            currency: "",
+            currency: "EUR",
             guests: "",
             bedrooms: "",
             beds: "",
@@ -44,16 +50,51 @@ export default function NewApartmentDialog() {
         },
     });
 
+    const [snackbar, setSnackbar] = React.useState({
+        open: false,
+        message: "",
+        severity: "success",
+    });
+
+    const showSnackbar = (message, severity = "success") => {
+        setSnackbar({
+            open: true,
+            message,
+            severity,
+        });
+    };
+
+    const handleSnackbarClose = (_, reason) => {
+        if (reason === "clickaway") return;
+        setSnackbar((prev) => ({ ...prev, open: false }));
+    };
+
+    const mutation = useMutation({
+        mutationFn: addApartment,
+        onSuccess: () => {
+            showSnackbar("Apartment successfully added!", "success");
+            queryClient.invalidateQueries({ queryKey: ["apartments"] });
+            methods.reset();
+            setOpen(false);
+        },
+        onError: (error) => {
+            showSnackbar(
+                error?.message || "Something went wrong",
+                "error"
+            );
+        },
+    });
+
+
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-        methods.reset();
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const newApartmentData = {
             ...data,
             lat: Number(data.lat),
@@ -67,11 +108,11 @@ export default function NewApartmentDialog() {
         };
 
         console.log(newApartmentData);
-        handleClose();
+        mutation.mutate(newApartmentData);
     };
 
     return (
-        <React.Fragment>
+        < React.Fragment >
             <Button variant="app" onClick={handleClickOpen}>New apartment</Button>
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" disableRestoreFocus>
                 <DialogTitle>Add new apartment</DialogTitle>
@@ -148,7 +189,7 @@ export default function NewApartmentDialog() {
                             <Box sx={{ display: "flex", gap: 2 }}>
                                 <FormTextField
                                     name="guests"
-                                    label="Number od guests"
+                                    label="Number of guests"
                                     type="number"
                                     rules={{
                                         required: "Required field",
@@ -157,7 +198,7 @@ export default function NewApartmentDialog() {
                                 />
                                 <FormTextField
                                     name="bedrooms"
-                                    label="Number od bedrooms"
+                                    label="Number of bedrooms"
                                     type="number"
                                     rules={{
                                         required: "Required field",
@@ -166,7 +207,7 @@ export default function NewApartmentDialog() {
                                 />
                                 <FormTextField
                                     name="beds"
-                                    label="Number od beds"
+                                    label="Number of beds"
                                     type="number"
                                     rules={{
                                         required: "Required field",
@@ -175,7 +216,7 @@ export default function NewApartmentDialog() {
                                 />
                                 <FormTextField
                                     name="bathrooms"
-                                    label="Number od bathrooms"
+                                    label="Number of bathrooms"
                                     type="number"
                                     rules={{
                                         required: "Required field",
@@ -239,9 +280,29 @@ export default function NewApartmentDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button variant="app" onClick={handleClose}>Cancel</Button>
-                    <Button variant="app" type="submit" form="subscription-form">Submit</Button>
+                    <Button variant="app" type="submit" form="subscription-form" disabled={mutation.isLoading}>
+                        {mutation.isLoading ? "Adding..." : "Submit"}
+                    </Button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                }}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={snackbar.severity}
+                    variant="filled"
+                    sx={{ width: "100%" }}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+        </React.Fragment >
     )
 }

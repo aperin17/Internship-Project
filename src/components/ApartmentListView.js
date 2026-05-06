@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import NewApartmentDialog from './NewApartmentDialog.js';
 
-
 export default function ApartmentListView() {
 
     const { data, isLoading, isError, error } = useQuery({
@@ -17,6 +16,7 @@ export default function ApartmentListView() {
     })
 
     const [filteredApartments, setFilteredApartments] = useState(null);
+
 
     useEffect(() => {
         if (data) setFilteredApartments(data);
@@ -42,7 +42,6 @@ export default function ApartmentListView() {
             </Box>
 
             {filteredApartments?.map(apartment => (<ApartmentCard key={apartment.id} apartment={apartment} />))}
-
         </div >
     );
 
