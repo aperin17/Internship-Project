@@ -24,5 +24,15 @@ export const theme = createTheme({
                 },
             ],
         },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: "10px",
+                },
+                notchedOutline: {
+                    borderColor: "#cccccc",
+                },
+            },
+        },
     },
 });

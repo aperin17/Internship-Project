@@ -75,23 +75,6 @@
   flex-direction: row;
 }
 
-/* .filter-form .MuiTextField-root {
-  width: 35ch;
-} */
-
-
-.filter-input .MuiOutlinedInput-root {
-  border-radius: 10px;
-}
-
-.filter-input .MuiOutlinedInput-root.Mui-focused fieldset {
-  border-color: "primary";
-}
-
-.filter-input .MuiInputLabel-root.Mui-focused {
-  color: "primary";
-}
-
 .no-favorite-apartments {
   color: #888;
   height: 40vh;
@@ -118,37 +101,4 @@
   justify-content: center;
   align-items: center;
   font-style: italic;
-}
-
-/* NEW APARTMENT POPUP: ----------------------------*/
-
-.open-btn {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-/* pozadina */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup {
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  width: 300px;
-}
-
-.close-btn {
-  margin-top: 15px;
-  padding: 8px 15px;
-  cursor: pointer;
 }

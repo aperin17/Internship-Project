@@ -6,8 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getApartments } from '../api/api.js';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddApartmentPopup from './AddApartmentPopup.js';
+import NewApartmentDialog from './NewApartmentDialog.js';
+
 
 export default function ApartmentListView() {
 
@@ -17,7 +17,6 @@ export default function ApartmentListView() {
     })
 
     const [filteredApartments, setFilteredApartments] = useState(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     useEffect(() => {
         if (data) setFilteredApartments(data);
@@ -39,10 +38,7 @@ export default function ApartmentListView() {
 
             <Box sx={{ mb: "12px", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
                 <Typography variant="h5" component="div" sx={{ fontSize: "20px" }}>Apartments</Typography>
-
-                <Button type="submit" variant="app" onClick={() => setIsPopupOpen(true)}>New apartment</Button>
-                {isPopupOpen && (<AddApartmentPopup setIsPopupOpen={setIsPopupOpen} />)}
-
+                <NewApartmentDialog></NewApartmentDialog>
             </Box>
 
             {filteredApartments?.map(apartment => (<ApartmentCard key={apartment.id} apartment={apartment} />))}
