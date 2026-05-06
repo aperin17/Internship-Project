@@ -6,7 +6,8 @@ export const getApartments = () =>
             return setTimeout(() => reject(new Error('Apartments not found')), 250);
         }
 
-        setTimeout(() => resolve(apartments), 250);
+        // setTimeout(() => resolve(apartments), 250);
+        setTimeout(() => resolve([...apartments]), 250);
     });
 
 export const getApartment = (id) =>

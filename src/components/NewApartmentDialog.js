@@ -71,9 +71,17 @@ export default function NewApartmentDialog() {
 
     const mutation = useMutation({
         mutationFn: addApartment,
-        onSuccess: () => {
+        onSuccess: async (newApartment) => {
             showSnackbar("Apartment successfully added!", "success");
-            queryClient.invalidateQueries({ queryKey: ["apartments"] });
+
+            // queryClient.setQueryData(['apartments'], (oldData) => {
+            //     if (!oldData) return [newApartment];
+
+            //     return [...oldData, newApartment];
+            // });
+
+            queryClient.invalidateQueries({ queryKey: ['apartments'] })
+
             methods.reset();
             setOpen(false);
         },
