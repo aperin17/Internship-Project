@@ -1,16 +1,48 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import MenuItem from "@mui/material/MenuItem";
+import FormTextField from "./FormTextField";
+import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { useForm, FormProvider, Controller } from "react-hook-form";
 
+const AMENITIES = [
+    "WiFi",
+    "Klima",
+    "Kuhinja",
+    "Parking",
+    "Balkon",
+    "Grejanje",
+    "TV",
+    "Jacuzzi",
+    "View",
+];
 
-export default function NewApartmentDialog({ setIsPopupOpen }) {
+export default function NewApartmentDialog() {
 
     const [open, setOpen] = React.useState(false);
+
+    const methods = useForm({
+        defaultValues: {
+            title: "",
+            city: "",
+            address: "",
+            lat: "",
+            lng: "",
+            pricePerNight: "",
+            currency: "",
+            guests: "",
+            bedrooms: "",
+            beds: "",
+            bathrooms: "",
+            rating: "",
+            amenities: [],
+        },
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -18,33 +50,25 @@ export default function NewApartmentDialog({ setIsPopupOpen }) {
 
     const handleClose = () => {
         setOpen(false);
+        methods.reset();
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const formJson = Object.fromEntries(formData.entries());
-
+    const onSubmit = (data) => {
         const newApartmentData = {
-            title: formJson.title,
-            city: formJson.city,
-            address: formJson.address,
-            lat: formJson.lat,
-            lng: formJson.lng,
-            pricePerNight: formJson.pricePerNight,
-            currency: formJson.currency,
-            guests: formJson.guests,
-            bedrooms: formJson.bedrooms,
-            beds: formJson.beds,
-            bathrooms: formJson.bathrooms,
-            rating: formJson.rating,
-            //...
+            ...data,
+            lat: Number(data.lat),
+            lng: Number(data.lng),
+            pricePerNight: Number(data.pricePerNight),
+            guests: Number(data.guests),
+            bedrooms: Number(data.bedrooms),
+            beds: Number(data.beds),
+            bathrooms: Number(data.bathrooms),
+            rating: Number(data.rating),
         };
 
         console.log(newApartmentData);
         handleClose();
     };
-
 
     return (
         <React.Fragment>
@@ -52,94 +76,166 @@ export default function NewApartmentDialog({ setIsPopupOpen }) {
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" disableRestoreFocus>
                 <DialogTitle>Add new apartment</DialogTitle>
                 <DialogContent>
-                    <form onSubmit={handleSubmit} id="subscription-form" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <TextField
-                                name="title"
-                                label="Title"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                        </Box>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <TextField
-                                name="city"
-                                label="City"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            <TextField
-                                name="address"
-                                label="Address"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                        </Box>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <TextField
-                                name="lat"
-                                label="Latitude"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            <TextField
-                                name="lng"
-                                label="Longitude"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                        </Box>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <TextField
-                                name="pricePerNight"
-                                label="Price per night"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            <TextField
-                                name="currency"
-                                label="Currency"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                        </Box>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <TextField
-                                name="guests"
-                                label="Number of guests"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            <TextField
-                                name="bedrooms"
-                                label="Number of bedrooms"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            <TextField
-                                name="beds"
-                                label="Number of beds"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            <TextField
-                                name="bathrooms"
-                                label="Number of bathrooms"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                        </Box>
-                        <Box sx={{ display: "flex", gap: 2 }}>
-                            <TextField
-                                name="rating"
-                                label="Rating"
-                                sx={{ flex: 1 }}
-                                size="small"
-                            />
-                            {/* images */}
-                            {/* amenities */}
-                        </Box>
-                    </form>
+                    <FormProvider {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)} id="subscription-form" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <FormTextField
+                                    name="title"
+                                    label="Title"
+                                    rules={{
+                                        required: "Required field",
+                                        minLength: { value: 3, message: "Title must be at least 3 characters" },
+                                    }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <FormTextField
+                                    name="city"
+                                    label="City"
+                                    rules={{ required: "Required field" }}
+                                />
+                                <FormTextField
+                                    name="address"
+                                    label="Address"
+                                    rules={{ required: "Required field" }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <FormTextField
+                                    name="lat"
+                                    label="Latitude"
+                                    rules={{
+                                        required: "Required field",
+                                        pattern: {
+                                            value: /^-?\d+(\.\d+)?$/,
+                                            message: "Invalid number",
+                                        },
+                                    }}
+                                />
+                                <FormTextField
+                                    name="lng"
+                                    label="Longitude"
+                                    rules={{
+                                        required: "Required field",
+                                        pattern: {
+                                            value: /^-?\d+(\.\d+)?$/,
+                                            message: "Invalid number",
+                                        },
+                                    }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <FormTextField
+                                    name="pricePerNight"
+                                    label="Price per night"
+                                    type="number"
+                                    rules={{
+                                        required: "Required field",
+                                        min: { value: 1, message: "Min 1" },
+                                    }}
+                                />
+                                <FormTextField
+                                    name="currency"
+                                    label="Currency"
+                                    select
+                                    rules={{ required: "Required field" }}
+                                >
+                                    <MenuItem value="EUR">EUR</MenuItem>
+                                    <MenuItem value="USD">USD</MenuItem>
+                                    <MenuItem value="RSD">RSD</MenuItem>
+                                </FormTextField>
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <FormTextField
+                                    name="guests"
+                                    label="Number od guests"
+                                    type="number"
+                                    rules={{
+                                        required: "Required field",
+                                        min: { value: 0, message: "Min 0" },
+                                    }}
+                                />
+                                <FormTextField
+                                    name="bedrooms"
+                                    label="Number od bedrooms"
+                                    type="number"
+                                    rules={{
+                                        required: "Required field",
+                                        min: { value: 0, message: "Min 0" },
+                                    }}
+                                />
+                                <FormTextField
+                                    name="beds"
+                                    label="Number od beds"
+                                    type="number"
+                                    rules={{
+                                        required: "Required field",
+                                        min: { value: 0, message: "Min 0" },
+                                    }}
+                                />
+                                <FormTextField
+                                    name="bathrooms"
+                                    label="Number od bathrooms"
+                                    type="number"
+                                    rules={{
+                                        required: "Required field",
+                                        min: { value: 0, message: "Min 0" },
+                                    }}
+                                />
+                            </Box>
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                                <Box sx={{ flex: 1 }}>
+                                    <FormTextField
+                                        name="rating"
+                                        label="Rating"
+                                        type="number"
+                                        rules={{
+                                            required: "Required field",
+                                            min: { value: 0, message: "Min 0" },
+                                            max: { value: 5, message: "Max 5" },
+                                        }}
+                                    />
+                                </Box>
+                                <Box sx={{ flex: 3 }}>
+                                    <Controller
+                                        name="amenities"
+                                        control={methods.control}
+                                        render={({ field }) => {
+                                            const { value = [], onChange } = field;
+
+                                            const handleChange = (option) => {
+                                                if (value.includes(option)) {
+                                                    onChange(value.filter((v) => v !== option));
+                                                } else {
+                                                    onChange([...value, option]);
+                                                }
+                                            };
+                                            return (
+                                                <FormControl>
+                                                    <FormLabel>Amenities</FormLabel>
+                                                    <FormGroup row>
+                                                        {AMENITIES.map((option) => (
+                                                            <FormControlLabel
+                                                                key={option}
+                                                                control={
+                                                                    <Checkbox
+                                                                        checked={value.includes(option)}
+                                                                        onChange={() => handleChange(option)}
+                                                                    />
+                                                                }
+                                                                label={option}
+                                                            />
+                                                        ))}
+                                                    </FormGroup>
+                                                </FormControl>
+                                            );
+                                        }}
+                                    />
+                                    {/* images */}
+                                </Box>
+                            </Box>
+                        </form>
+                    </FormProvider>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="app" onClick={handleClose}>Cancel</Button>
