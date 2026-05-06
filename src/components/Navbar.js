@@ -89,7 +89,7 @@ export default function Navbar() {
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page} component={Link} to={`/${page.toLowerCase()}`}>
                                     <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -100,7 +100,6 @@ export default function Navbar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -158,6 +157,6 @@ export default function Navbar() {
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     );
 }

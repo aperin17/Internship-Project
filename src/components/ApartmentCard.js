@@ -41,7 +41,7 @@ export default function ApartmentCard({ apartment }) {
                 </Typography>
             </CardContent>
             <CardActions className="card-actions">
-                <Button size="small" sx={{ color: "primary.main" }} onClick={() => navigate(`/apartments/${apartment.id}`)}>Details</Button>
+                <Button onClick={() => navigate(`/apartments/${apartment.id}`)}>Details</Button>
                 {
                     !favoriteIds.includes(apartment.id)
                         ?

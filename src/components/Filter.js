@@ -40,7 +40,7 @@ export default function Filter({ apartments, setFilteredApartments }) {
                 <TextField className="filter-input" name="maxPrice" label="Maximum price per night (EUR)" fullWidth id="outlined-size-small" size="small" variant="outlined" />
                 <TextField className="filter-input" name="guests" label="Number of guests" fullWidth id="outlined-size-small" size="small" variant="outlined" />
 
-                <Button type="submit" className="app-button" variant="contained" size="small">Filter</Button>
+                <Button type="submit" variant="app">Filter</Button>
 
             </Box>
         </div >
