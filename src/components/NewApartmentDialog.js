@@ -11,7 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import { useForm, FormProvider, Controller } from "react-hook-form";
-import { addApartment } from '../utils/addApartment.js';
+import { createApartment } from '../api/api.js';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const AMENITIES = [
@@ -70,15 +70,9 @@ export default function NewApartmentDialog() {
     };
 
     const mutation = useMutation({
-        mutationFn: addApartment,
+        mutationFn: createApartment,
         onSuccess: async (newApartment) => {
             showSnackbar("Apartment successfully added!", "success");
-
-            // queryClient.setQueryData(['apartments'], (oldData) => {
-            //     if (!oldData) return [newApartment];
-
-            //     return [...oldData, newApartment];
-            // });
 
             queryClient.invalidateQueries({ queryKey: ['apartments'] })
 
