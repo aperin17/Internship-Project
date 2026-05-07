@@ -14,7 +14,7 @@ export const getApartments = () =>
 
 export const getApartment = (id) =>
     new Promise((resolve, reject) => {
-        const apartment = apartments.find(apartment => apartment.id === Number(id));
+        const apartment = apartments.find(apartment => apartment.id === id);
 
         if (!apartment) {
             return setTimeout(() => reject(new Error('Apartment not found')), 250);
@@ -31,7 +31,7 @@ export const createApartment = (data) =>
             data.pricePerNight == null || !data.currency ||
             data.guests == null || data.bedrooms == null || data.beds == null || data.bathrooms == null || data.rating == null) {
             //!newApartment.image || !newApartment.amenities) {
-            reject(new Error('Not all information provided'));
+            return reject(new Error('Not all information provided'));
         }
         const id = uuidv4();
         const newApartment = { id, ...data };
