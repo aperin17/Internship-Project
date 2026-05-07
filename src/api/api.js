@@ -14,7 +14,7 @@ export const getApartments = () =>
 
 export const getApartment = (id) =>
     new Promise((resolve, reject) => {
-        const apartment = apartments.find(apartment => apartment.id === id);
+        const apartment = apartments.find(apartment => String(apartment.id) === String(id));
 
         if (!apartment) {
             return setTimeout(() => reject(new Error('Apartment not found')), 250);
